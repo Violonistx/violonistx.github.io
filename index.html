@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Руслан Шайхутдинов — Python Backend Developer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0D2352;
+      --dark: #1a1a2e;
+      --text: #2E2E2E;
+      --muted: #37474F;
+      --border: #e0e4ef;
+      --bg: #f8f9fc;
+      --tag-bg: #eef1f8;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: var(--navy); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* HEADER */
+    header {
+      background: var(--navy);
+      color: #fff;
+      padding: 48px 0 40px;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    header .tagline {
+      font-size: 1.05rem;
+      opacity: 0.75;
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    .header-links {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .header-links a {
+      color: #fff;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .header-links a:hover { opacity: 1; text-decoration: none; }
+
+    .btn-download {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 9px 22px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 6px;
+      color: #fff !important;
+      font-size: 0.9rem;
+      font-weight: 500;
+      opacity: 1 !important;
+      transition: background 0.15s;
+    }
+
+    .btn-download:hover { background: rgba(255,255,255,0.22) !important; }
+
+    /* LAYOUT */
+    .main {
+      max-width: 960px;
+      margin: 40px auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* SECTIONS */
+    section { margin-bottom: 36px; }
+
+    h2 {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--navy);
+      border-bottom: 2px solid var(--navy);
+      padding-bottom: 5px;
+      margin-bottom: 18px;
+    }
+
+    .about p {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* EXPERIENCE */
+    .event { margin-bottom: 24px; }
+
+    .event-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .event-title {
+      font-weight: 600;
+      font-size: 0.97rem;
+      color: var(--text);
+    }
+
+    .event-company {
+      font-size: 0.9rem;
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    .event-date {
+      font-size: 0.82rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .event ul {
+      margin-top: 8px;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .event ul li {
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .event-single {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.6;
+    }
+
+    /* SIDEBAR */
+    .sidebar section { margin-bottom: 28px; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tag {
+      background: var(--tag-bg);
+      color: var(--navy);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .skill-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .skill-list li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-list li:last-child { border-bottom: none; }
+
+    .skill-list li::before {
+      content: '·';
+      color: var(--navy);
+      font-weight: 700;
+      margin-right: 8px;
+    }
+
+    /* EDUCATION */
+    .edu-item { margin-bottom: 14px; }
+    .edu-title { font-weight: 600; font-size: 0.95rem; }
+    .edu-sub { font-size: 0.87rem; color: var(--muted); margin-top: 2px; }
+
+    @media (max-width: 700px) {
+      .main { grid-template-columns: 1fr; }
+      .header-inner { flex-direction: column; align-items: flex-start; }
+      .header-links { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>Руслан Шайхутдинов</h1>
+      <div class="tagline">Python Backend Developer</div>
+      <a class="btn-download" href="resume.pdf" download>↓ Скачать резюме (PDF)</a>
+    </div>
+    <div class="header-links">
+      <a href="mailto:shayrv@yandex.ru">shayrv@yandex.ru</a>
+      <a href="https://t.me/shayrv" target="_blank">t.me/shayrv</a>
+      <a href="https://github.com/Violonistx" target="_blank">github.com/Violonistx</a>
+      <span>Москва, Россия</span>
+    </div>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- LEFT COLUMN -->
+  <div class="content">
+
+    <section class="about">
+      <h2>О себе</h2>
+      <p>
+        Backend-разработчик с опытом production-систем и AI-агентной разработки. Строю Personal Context Hub — агентную платформу с connector framework, memory layer (Mem0) и MCP-интерфейсом для интеграции LLM. Работал над backend финтех- и marketplace-проектов: API, бизнес-логика, интеграции, production-сопровождение. Основной стек: Python, FastAPI, Django, PostgreSQL, Redis, asyncio, pydantic. Практический опыт с LLM: prompt engineering, агентные пайплайны, RAG. Изучаю LangChain/LangGraph.
+      </p>
+    </section>
+
+    <section>
+      <h2>Профессиональный опыт</h2>
+
+      <div class="event">
+        <div class="event-header">
+          <div>
+            <div class="event-title">Backend-разработчик</div>
+            <div class="event-company">Tratapay</div>
+          </div>
+          <div class="event-date">Ноябрь 2025 — март 2026</div>
+        </div>
+        <ul>
+          <li>Самостоятельно с нуля разработал и вывел в production монолитный backend финтех-продукта с аудиторией около 1000 пользователей.</li>
+          <li>Проектировал и реализовывал API, серверную бизнес-логику, административный и операторский контуры, внутренние сервисы и защищённые маршруты.</li>
+          <li>Использовал AI-агентов как инструмент разработки: формулировал задачи, ревьюил и интегрировал результаты, сопровождал агентно-написанный код в production.</li>
+          <li>Реализовывал интеграции с Telegram, платёжной инфраструктурой, webhook-ами и внешними сервисами.</li>
+          <li>Самостоятельно сопровождал production: деплой, миграции, разбор инцидентов и исправление продовых багов.</li>
+        </ul>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <div>
+            <div class="event-title">Backend-разработчик</div>
+            <div class="event-company"><a href="https://sellout.su/" target="_blank">Sellout</a></div>
+          </div>
+          <div class="event-date">Июнь 2023 — июнь 2025</div>
+        </div>
+        <ul>
+          <li>Участвовал в разработке backend-части marketplace-платформы одежды и обуви с международной доставкой.</li>
+          <li>Работал со стеком Python: Django, DRF, PostgreSQL, Redis, Celery, asyncio.</li>
+          <li>Реализовывал пользовательский слой: корзина с пересчётом скидок, статус-автомат заказов, оплаты с фискализацией по 54-ФЗ, доставка через Boxberry, бонусная и реферальная системы.</li>
+          <li>Интегрировал внешние сервисы: платёжный эквайринг LifePay, логистику Boxberry, Telegram-уведомления.</li>
+          <li>Поддерживал и дорабатывал существующий код в рабочей production-системе.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Pet-проекты</h2>
+
+      <div class="event">
+        <div class="event-header">
+          <div>
+            <div class="event-title">Personal Context Hub</div>
+            <div class="event-company">Агентная платформа</div>
+          </div>
+          <div class="event-date">2026 — н.в.</div>
+        </div>
+        <ul>
+          <li>Проектирую горизонтальный AI-слой: connector framework для интеграции источников данных (Gmail, Telegram, Yandex Calendar), memory layer поверх Mem0, MCP-сервер для подключения LLM-клиентов.</li>
+          <li>Реализую агентные пайплайны: оркестрация, tool use, семантический поиск по персональному контексту пользователя.</li>
+          <li>Работаю с prompt engineering и RAG: извлечение фактов из неструктурированных данных, инъекция контекста в LLM-запросы.</li>
+          <li>Стек: Python, FastAPI, PostgreSQL, Redis, Mem0, Composio, Docker.</li>
+        </ul>
+      </div>
+
+      <div class="event">
+        <div class="event-header">
+          <div>
+            <div class="event-title">UASOT</div>
+            <div class="event-company">CRM-система на async Python</div>
+          </div>
+          <div class="event-date">2025 — н.в.</div>
+        </div>
+        <ul>
+          <li>CRM для учебного центра: расписание, посещаемость, оплаты, Telegram-бот для уведомлений.</li>
+          <li>Стек: FastAPI, SQLAlchemy 2.0 async, asyncpg, pydantic v2, aiogram 3, Alembic, Docker-Compose.</li>
+          <li>Реализовал фоновую генерацию уроков по расписанию через asyncio-таски в lifespan FastAPI.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Образование</h2>
+      <div class="edu-item">
+        <div class="edu-title"><a href="https://www.hse.ru/" target="_blank">НИУ ВШЭ</a> — Бакалавриат</div>
+        <div class="edu-sub">Факультет компьютерных наук · Программная инженерия · 2022 — н.в.</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-title">Олимпиады (2021–2022)</div>
+        <div class="edu-sub">
+          Победитель «Высшая проба» по математике ·
+          Победитель «Физтех» по математике ·
+          Победитель «Миссия выполнима. Твоё призвание Финансист» по экономике
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <section>
+      <h2>Tech Stack</h2>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">Django</span>
+        <span class="tag">asyncio</span>
+        <span class="tag">pydantic</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Redis</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Git</span>
+        <span class="tag">Linux</span>
+        <span class="tag">REST API</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Node.js</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>AI / LLM</h2>
+      <ul class="skill-list">
+        <li>Prompt engineering</li>
+        <li>Агентные пайплайны</li>
+        <li>RAG-архитектуры</li>
+        <li>Mem0 (memory layer)</li>
+        <li>MCP (Model Context Protocol)</li>
+        <li>Tool use / function calling</li>
+        <li>Изучаю LangChain / LangGraph</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Backend Skills</h2>
+      <ul class="skill-list">
+        <li>Проектирование API</li>
+        <li>Бизнес-логика и сервисный слой</li>
+        <li>Агентная оркестрация</li>
+        <li>Интеграции с внешними API</li>
+        <li>Async / event-driven архитектура</li>
+        <li>Миграции и схемы БД</li>
+        <li>Production debugging</li>
+        <li>Telegram Bot API</li>
+      </ul>
+    </section>
+
+  </div>
+
+</div>
+
+</body>
+</html>
