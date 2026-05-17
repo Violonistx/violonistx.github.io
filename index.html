@@ -1,191 +1,317 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Руслан Шайхутдинов — Python Backend Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy: #0D2352;
-      --dark: #1a1a2e;
-      --text: #2E2E2E;
-      --muted: #37474F;
-      --border: #e0e4ef;
-      --bg: #f8f9fc;
-      --tag-bg: #eef1f8;
+      --black: #000000;
+      --text: #1a1a1a;
+      --muted: #727272;
+      --gray: #8d8d8d;
+      --line: #e5e5e5;
+      --bg: #ffffff;
+      --bg-soft: #f6f6f6;
+      --accent: #940a0a;
     }
 
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      font-size: 15px;
+    [data-theme="dark"] {
+      --black: #ffffff;
+      --text: #ededed;
+      --muted: #9a9a9a;
+      --gray: #707070;
+      --line: #232323;
+      --bg: #0a0a0a;
+      --bg-soft: #161616;
+      --accent: #e54545;
+    }
+
+    html, body {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
       color: var(--text);
       background: var(--bg);
-      line-height: 1.6;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    a { color: var(--navy); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
+    a:hover { color: var(--gray); }
+
+    /* Language switching */
+    [data-lang="ru"] .en { display: none !important; }
+    [data-lang="en"] .ru { display: none !important; }
 
     /* HEADER */
     header {
-      background: var(--navy);
-      color: #fff;
-      padding: 48px 0 40px;
+      background: var(--bg);
+      color: var(--black);
+      border-bottom: 1px solid var(--line);
+      padding: 56px 0 32px;
     }
 
     .header-inner {
-      max-width: 960px;
+      max-width: 1040px;
       margin: 0 auto;
-      padding: 0 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       gap: 32px;
-      flex-wrap: wrap;
+      align-items: center;
     }
 
-    header h1 {
-      font-size: 2.4rem;
+    .photo-wrap {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--bg-soft);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .name-block .label {
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: -0.5px;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 8px;
     }
 
-    header .tagline {
-      font-size: 1.05rem;
-      opacity: 0.75;
-      margin-top: 4px;
-      font-weight: 400;
+    .name-block h1 {
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 8px;
     }
 
-    .header-links {
+    .name-block .tagline {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .header-side {
       display: flex;
       flex-direction: column;
-      gap: 6px;
       align-items: flex-end;
-      font-size: 0.9rem;
-      opacity: 0.9;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--muted);
     }
 
-    .header-links a {
-      color: #fff;
-      opacity: 0.85;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .header-side a {
+      color: var(--text);
+      font-weight: 500;
     }
 
-    .header-links a:hover { opacity: 1; text-decoration: none; }
+    .header-side a:hover { color: var(--accent); }
 
     .btn-download {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 9px 22px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 6px;
-      color: #fff !important;
-      font-size: 0.9rem;
-      font-weight: 500;
-      opacity: 1 !important;
-      transition: background 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 9px 16px;
+      background: var(--text);
+      color: var(--bg) !important;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 7px;
+      border: 1px solid var(--text);
+      transition: opacity 0.3s ease;
+      align-self: flex-end;
     }
 
-    .btn-download:hover { background: rgba(255,255,255,0.22) !important; }
+    .btn-download:hover {
+      opacity: 0.8;
+      color: var(--bg) !important;
+    }
+
+    /* Toggles (theme + lang) */
+    .top-toggles {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .toggle-btn {
+      height: 38px;
+      min-width: 38px;
+      padding: 0 12px;
+      border-radius: 19px;
+      border: 1px solid var(--text);
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      background: var(--text);
+      color: var(--bg);
+      transform: scale(1.05);
+    }
+
+    .theme-toggle { font-size: 16px; padding: 0; width: 38px; }
+
+    @media print {
+      .top-toggles { display: none; }
+    }
 
     /* LAYOUT */
     .main {
-      max-width: 960px;
-      margin: 40px auto;
-      padding: 0 32px;
+      max-width: 1040px;
+      margin: 48px auto 96px;
+      padding: 0 40px;
       display: grid;
-      grid-template-columns: 1fr 260px;
-      gap: 40px;
+      grid-template-columns: 1fr 280px;
+      gap: 56px;
       align-items: start;
     }
 
     /* SECTIONS */
-    section { margin-bottom: 36px; }
+    section { margin-bottom: 44px; }
 
     h2 {
-      font-size: 0.72rem;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 1.4px;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--navy);
-      border-bottom: 2px solid var(--navy);
-      padding-bottom: 5px;
-      margin-bottom: 18px;
+      color: var(--text);
+      padding-bottom: 10px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--text);
     }
 
     .about p {
-      color: var(--muted);
+      color: var(--text);
+      font-size: 14px;
       line-height: 1.75;
     }
 
     /* EXPERIENCE */
-    .event { margin-bottom: 24px; }
+    .event { margin-bottom: 30px; }
+
+    .event:last-child { margin-bottom: 0; }
 
     .event-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
       flex-wrap: wrap;
-      gap: 4px;
-      margin-bottom: 4px;
+      gap: 6px 16px;
+      margin-bottom: 10px;
     }
 
     .event-title {
-      font-weight: 600;
-      font-size: 0.97rem;
+      font-weight: 700;
+      font-size: 14px;
       color: var(--text);
+      letter-spacing: 0.01em;
     }
 
     .event-company {
-      font-size: 0.9rem;
-      color: var(--navy);
+      font-size: 13px;
+      color: var(--muted);
       font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .event-company a {
+      color: var(--text);
+      border-bottom: 1px solid var(--line);
+      transition: border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .event-company a:hover {
+      color: var(--text);
+      border-color: var(--text);
     }
 
     .event-date {
-      font-size: 0.82rem;
-      color: var(--muted);
+      font-size: 11px;
+      color: var(--gray);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       white-space: nowrap;
     }
 
     .event ul {
-      margin-top: 8px;
-      padding-left: 18px;
-      color: var(--muted);
+      margin-top: 12px;
+      padding-left: 0;
+      list-style: none;
     }
 
     .event ul li {
-      margin-bottom: 4px;
-      font-size: 0.9rem;
-      line-height: 1.6;
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text);
     }
 
-    .event-single {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin-top: 6px;
-      line-height: 1.6;
+    .event ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 8px;
+      height: 1px;
+      background: var(--text);
     }
 
     /* SIDEBAR */
-    .sidebar section { margin-bottom: 28px; }
+    .sidebar section { margin-bottom: 36px; }
 
     .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 
     .tag {
-      background: var(--tag-bg);
-      color: var(--navy);
-      font-size: 0.8rem;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 11px;
       font-weight: 500;
-      padding: 3px 10px;
+      padding: 5px 11px;
       border-radius: 20px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--text);
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .tag:hover {
+      background: var(--text);
+      color: var(--bg);
     }
 
     .skill-list {
@@ -194,47 +320,152 @@
     }
 
     .skill-list li {
-      font-size: 0.88rem;
-      color: var(--muted);
-      padding: 4px 0;
-      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .skill-list li:last-child { border-bottom: none; }
 
     .skill-list li::before {
-      content: '·';
-      color: var(--navy);
-      font-weight: 700;
-      margin-right: 8px;
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: var(--text);
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
     /* EDUCATION */
-    .edu-item { margin-bottom: 14px; }
-    .edu-title { font-weight: 600; font-size: 0.95rem; }
-    .edu-sub { font-size: 0.87rem; color: var(--muted); margin-top: 2px; }
+    .edu-item { margin-bottom: 18px; }
+    .edu-item:last-child { margin-bottom: 0; }
+    .edu-title { font-weight: 700; font-size: 13px; color: var(--text); margin-bottom: 4px; }
+    .edu-title a {
+      border-bottom: 1px solid var(--line);
+      transition: border-color 0.3s ease;
+    }
+    .edu-title a:hover { border-color: var(--text); color: var(--text); }
+    .edu-sub { font-size: 12px; color: var(--muted); line-height: 1.55; }
 
-    @media (max-width: 700px) {
-      .main { grid-template-columns: 1fr; }
-      .header-inner { flex-direction: column; align-items: flex-start; }
-      .header-links { align-items: flex-start; }
+    /* FOOTER */
+    .cv-footer {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 28px 40px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+      font-weight: 700;
+    }
+
+    .cv-footer .accent {
+      color: var(--accent);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 820px) {
+      .main {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin: 32px auto 60px;
+      }
+      .header-inner {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .photo-wrap {
+        width: 90px;
+        height: 90px;
+      }
+      .header-side {
+        align-items: flex-start;
+      }
+      .btn-download {
+        align-self: flex-start;
+      }
+      .name-block h1 { font-size: 30px; }
+      header { padding: 36px 0 24px; }
+      .header-inner, .main, .cv-footer { padding-left: 24px; padding-right: 24px; }
+    }
+
+    @media print {
+      [data-theme="dark"] {
+        --black: #000000;
+        --text: #1a1a1a;
+        --muted: #727272;
+        --gray: #8d8d8d;
+        --line: #e5e5e5;
+        --bg: #ffffff;
+        --bg-soft: #f6f6f6;
+        --accent: #940a0a;
+      }
+      header { padding: 24px 0; border-bottom: 1px solid var(--text); }
+      .btn-download { display: none; }
+      .main { margin: 24px auto; }
+      section { margin-bottom: 28px; page-break-inside: avoid; }
+      .event { page-break-inside: avoid; }
     }
   </style>
 </head>
 <body>
 
+<script>
+  (function() {
+    var storedTheme = localStorage.getItem('cv-theme');
+    var sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var theme = storedTheme || (sysDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+
+    var storedLang = localStorage.getItem('cv-lang') || 'ru';
+    document.documentElement.setAttribute('data-lang', storedLang);
+    document.documentElement.setAttribute('lang', storedLang);
+  })();
+</script>
+
+<div class="top-toggles">
+  <button class="toggle-btn lang-toggle" type="button" onclick="toggleLang()" id="langToggle">EN</button>
+  <button class="toggle-btn theme-toggle" type="button" onclick="toggleTheme()" id="themeToggle">☀</button>
+</div>
+
 <header>
   <div class="header-inner">
-    <div>
-      <h1>Руслан Шайхутдинов</h1>
-      <div class="tagline">Python Backend Developer</div>
-      <a class="btn-download" href="resume.pdf" download>↓ Скачать резюме (PDF)</a>
+    <div class="photo-wrap">
+      <img src="photo.jpg" alt="Ruslan Shaykhutdinov" onerror="this.style.display='none'"/>
     </div>
-    <div class="header-links">
+
+    <div class="name-block">
+      <div class="label">
+        <span class="ru">Резюме / 2026</span>
+        <span class="en">Resume / 2026</span>
+      </div>
+      <h1>
+        <span class="ru">Руслан Шайхутдинов</span>
+        <span class="en">Ruslan Shaykhutdinov</span>
+      </h1>
+      <div class="tagline">Python Backend Developer · AI / LLM</div>
+    </div>
+
+    <div class="header-side">
       <a href="mailto:shayrv@yandex.ru">shayrv@yandex.ru</a>
       <a href="https://t.me/shayrv" target="_blank">t.me/shayrv</a>
       <a href="https://github.com/Violonistx" target="_blank">github.com/Violonistx</a>
-      <span>Москва, Россия</span>
+      <span>
+        <span class="ru">Москва, Россия</span>
+        <span class="en">Moscow, Russia</span>
+      </span>
+      <a class="btn-download" href="resume.pdf" download>
+        <span class="ru">↓ Резюме PDF</span>
+        <span class="en">↓ Resume PDF</span>
+      </a>
     </div>
   </div>
 </header>
@@ -245,66 +476,107 @@
   <div class="content">
 
     <section class="about">
-      <h2>О себе</h2>
-      <p>
-        Backend-разработчик с опытом production-систем и AI-агентной разработки. Строю Personal Context Hub — агентную платформу с connector framework, memory layer (Mem0) и MCP-интерфейсом для интеграции LLM. Работал над backend финтех- и marketplace-проектов: API, бизнес-логика, интеграции, production-сопровождение. Основной стек: Python, FastAPI, Django, PostgreSQL, Redis, asyncio, pydantic. Практический опыт с LLM: prompt engineering, агентные пайплайны, RAG. Изучаю LangChain/LangGraph.
+      <h2><span class="ru">О себе</span><span class="en">About</span></h2>
+      <p class="ru">
+        Backend-инженер на стыке production-разработки и агентного AI. С 2023 года участвую в коммерческой разработке: от поддержки маркетплейс-платформы до самостоятельного запуска финтех-продукта в одиночку. Параллельно строю собственный pet-проект в области AI-инфраструктуры.
+      </p>
+      <p class="en">
+        Backend engineer working at the intersection of production development and agent-based AI. In commercial development since 2023: from supporting a marketplace platform to shipping a fintech product solo. In parallel, building my own pet-project in AI infrastructure.
       </p>
     </section>
 
     <section>
-      <h2>Профессиональный опыт</h2>
+      <h2><span class="ru">Профессиональный опыт</span><span class="en">Experience</span></h2>
 
       <div class="event">
         <div class="event-header">
           <div>
-            <div class="event-title">Backend-разработчик</div>
+            <div class="event-title">
+              <span class="ru">Backend-разработчик</span>
+              <span class="en">Backend Developer</span>
+            </div>
             <div class="event-company">Tratapay</div>
           </div>
-          <div class="event-date">Ноябрь 2025 — март 2026</div>
+          <div class="event-date">
+            <span class="ru">Ноя 2025 — Мар 2026</span>
+            <span class="en">Nov 2025 — Mar 2026</span>
+          </div>
         </div>
-        <ul>
+        <ul class="ru">
           <li>Самостоятельно с нуля разработал и вывел в production монолитный backend финтех-продукта с аудиторией около 1000 пользователей.</li>
           <li>Проектировал и реализовывал API, серверную бизнес-логику, административный и операторский контуры, внутренние сервисы и защищённые маршруты.</li>
           <li>Использовал AI-агентов как инструмент разработки: формулировал задачи, ревьюил и интегрировал результаты, сопровождал агентно-написанный код в production.</li>
           <li>Реализовывал интеграции с Telegram, платёжной инфраструктурой, webhook-ами и внешними сервисами.</li>
           <li>Самостоятельно сопровождал production: деплой, миграции, разбор инцидентов и исправление продовых багов.</li>
         </ul>
+        <ul class="en">
+          <li>Designed and shipped a monolithic backend for a fintech product with ~1000 users solo, from scratch to production.</li>
+          <li>Designed and implemented APIs, business logic, admin and operator panels, internal services, and authenticated routes.</li>
+          <li>Used AI agents as a development tool: scoped tasks, reviewed and integrated outputs, supported agent-written code in production.</li>
+          <li>Built integrations with Telegram, payment infrastructure, webhooks, and external services.</li>
+          <li>Owned production end-to-end: deployments, migrations, incident response, and bug fixes.</li>
+        </ul>
       </div>
 
       <div class="event">
         <div class="event-header">
           <div>
-            <div class="event-title">Backend-разработчик</div>
+            <div class="event-title">
+              <span class="ru">Backend-разработчик</span>
+              <span class="en">Backend Developer</span>
+            </div>
             <div class="event-company"><a href="https://sellout.su/" target="_blank">Sellout</a></div>
           </div>
-          <div class="event-date">Июнь 2023 — июнь 2025</div>
+          <div class="event-date">
+            <span class="ru">Июн 2023 — Окт 2025</span>
+            <span class="en">Jun 2023 — Oct 2025</span>
+          </div>
         </div>
-        <ul>
+        <ul class="ru">
           <li>Участвовал в разработке backend-части marketplace-платформы одежды и обуви с международной доставкой.</li>
-          <li>Работал со стеком Python: Django, DRF, PostgreSQL, Redis, Celery, asyncio.</li>
+          <li>Работал со стеком Python: Django, DRF, PostgreSQL, Celery, asyncio.</li>
           <li>Реализовывал пользовательский слой: корзина с пересчётом скидок, статус-автомат заказов, оплаты с фискализацией по 54-ФЗ, доставка через Boxberry, бонусная и реферальная системы.</li>
           <li>Интегрировал внешние сервисы: платёжный эквайринг LifePay, логистику Boxberry, Telegram-уведомления.</li>
           <li>Поддерживал и дорабатывал существующий код в рабочей production-системе.</li>
+        </ul>
+        <ul class="en">
+          <li>Contributed to backend development of an apparel marketplace with international shipping.</li>
+          <li>Worked with Python stack: Django, DRF, PostgreSQL, Celery, asyncio.</li>
+          <li>Built user-facing features: cart with discount calculation, order status state machine, payments with Russian fiscal compliance (FZ-54), Boxberry shipping integration, bonus and referral systems.</li>
+          <li>Integrated external services: LifePay payment processing, Boxberry logistics, Telegram notifications.</li>
+          <li>Maintained and extended existing code in a live production system.</li>
         </ul>
       </div>
     </section>
 
     <section>
-      <h2>Pet-проекты</h2>
+      <h2><span class="ru">Pet-проекты</span><span class="en">Personal Projects</span></h2>
 
       <div class="event">
         <div class="event-header">
           <div>
             <div class="event-title">Personal Context Hub</div>
-            <div class="event-company">Агентная платформа</div>
+            <div class="event-company">
+              <span class="ru">Агентная платформа</span>
+              <span class="en">AI Agent Platform</span>
+            </div>
           </div>
-          <div class="event-date">2026 — н.в.</div>
+          <div class="event-date">
+            <span class="ru">2026 — н.в.</span>
+            <span class="en">2026 — present</span>
+          </div>
         </div>
-        <ul>
+        <ul class="ru">
           <li>Проектирую горизонтальный AI-слой: connector framework для интеграции источников данных (Gmail, Telegram, Yandex Calendar), memory layer поверх Mem0, MCP-сервер для подключения LLM-клиентов.</li>
           <li>Реализую агентные пайплайны: оркестрация, tool use, семантический поиск по персональному контексту пользователя.</li>
           <li>Работаю с prompt engineering и RAG: извлечение фактов из неструктурированных данных, инъекция контекста в LLM-запросы.</li>
           <li>Стек: Python, FastAPI, PostgreSQL, Redis, Mem0, Composio, Docker.</li>
+        </ul>
+        <ul class="en">
+          <li>Designing a horizontal AI layer: connector framework for data sources (Gmail, Telegram, Yandex Calendar), memory layer on top of Mem0, MCP server for LLM client integration.</li>
+          <li>Implementing agent pipelines: orchestration, tool use, semantic search over personal user context.</li>
+          <li>Working with prompt engineering and RAG: extracting facts from unstructured data, injecting context into LLM queries.</li>
+          <li>Stack: Python, FastAPI, PostgreSQL, Redis, Mem0, Composio, Docker.</li>
         </ul>
       </div>
 
@@ -312,30 +584,57 @@
         <div class="event-header">
           <div>
             <div class="event-title">UASOT</div>
-            <div class="event-company">CRM-система на async Python</div>
+            <div class="event-company">
+              <span class="ru">CRM-система на async Python</span>
+              <span class="en">Async Python CRM</span>
+            </div>
           </div>
-          <div class="event-date">2025 — н.в.</div>
+          <div class="event-date">
+            <span class="ru">2025 — н.в.</span>
+            <span class="en">2025 — present</span>
+          </div>
         </div>
-        <ul>
+        <ul class="ru">
           <li>CRM для учебного центра: расписание, посещаемость, оплаты, Telegram-бот для уведомлений.</li>
           <li>Стек: FastAPI, SQLAlchemy 2.0 async, asyncpg, pydantic v2, aiogram 3, Alembic, Docker-Compose.</li>
           <li>Реализовал фоновую генерацию уроков по расписанию через asyncio-таски в lifespan FastAPI.</li>
+        </ul>
+        <ul class="en">
+          <li>CRM for an educational center: schedules, attendance, payments, Telegram notification bot.</li>
+          <li>Stack: FastAPI, SQLAlchemy 2.0 async, asyncpg, pydantic v2, aiogram 3, Alembic, Docker-Compose.</li>
+          <li>Implemented background lesson generation via asyncio tasks in FastAPI lifespan.</li>
         </ul>
       </div>
     </section>
 
     <section>
-      <h2>Образование</h2>
+      <h2><span class="ru">Образование</span><span class="en">Education</span></h2>
       <div class="edu-item">
-        <div class="edu-title"><a href="https://www.hse.ru/" target="_blank">НИУ ВШЭ</a> — Бакалавриат</div>
-        <div class="edu-sub">Факультет компьютерных наук · Программная инженерия · 2022 — н.в.</div>
+        <div class="edu-title">
+          <span class="ru"><a href="https://www.hse.ru/" target="_blank">НИУ ВШЭ</a> — Бакалавриат</span>
+          <span class="en"><a href="https://www.hse.ru/en/" target="_blank">HSE University</a> — Bachelor's degree</span>
+        </div>
+        <div class="edu-sub">
+          <span class="ru">Факультет компьютерных наук · Программная инженерия · 2022 — н.в.</span>
+          <span class="en">Faculty of Computer Science · Software Engineering · 2022 — present</span>
+        </div>
       </div>
       <div class="edu-item">
-        <div class="edu-title">Олимпиады (2021–2022)</div>
+        <div class="edu-title">
+          <span class="ru">Олимпиады (2021–2022)</span>
+          <span class="en">Olympiads (2021–2022)</span>
+        </div>
         <div class="edu-sub">
-          Победитель «Высшая проба» по математике ·
-          Победитель «Физтех» по математике ·
-          Победитель «Миссия выполнима. Твоё призвание Финансист» по экономике
+          <span class="ru">
+            Победитель «Высшая проба» по математике ·
+            Победитель «Физтех» по математике ·
+            Победитель «Миссия выполнима. Твоё призвание Финансист» по экономике
+          </span>
+          <span class="en">
+            Winner of HSE «Vysshaya Proba» Math Olympiad ·
+            Winner of MIPT «Phystech» Math Olympiad ·
+            Winner of «Mission Possible» Economics Olympiad
+          </span>
         </div>
       </div>
     </section>
@@ -366,7 +665,7 @@
 
     <section>
       <h2>AI / LLM</h2>
-      <ul class="skill-list">
+      <ul class="skill-list ru">
         <li>Prompt engineering</li>
         <li>Агентные пайплайны</li>
         <li>RAG-архитектуры</li>
@@ -375,11 +674,20 @@
         <li>Tool use / function calling</li>
         <li>Изучаю LangChain / LangGraph</li>
       </ul>
+      <ul class="skill-list en">
+        <li>Prompt engineering</li>
+        <li>Agent pipelines</li>
+        <li>RAG architectures</li>
+        <li>Mem0 (memory layer)</li>
+        <li>MCP (Model Context Protocol)</li>
+        <li>Tool use / function calling</li>
+        <li>Learning LangChain / LangGraph</li>
+      </ul>
     </section>
 
     <section>
       <h2>Backend Skills</h2>
-      <ul class="skill-list">
+      <ul class="skill-list ru">
         <li>Проектирование API</li>
         <li>Бизнес-логика и сервисный слой</li>
         <li>Агентная оркестрация</li>
@@ -389,11 +697,61 @@
         <li>Production debugging</li>
         <li>Telegram Bot API</li>
       </ul>
+      <ul class="skill-list en">
+        <li>API design</li>
+        <li>Business logic and service layer</li>
+        <li>Agent orchestration</li>
+        <li>External API integrations</li>
+        <li>Async / event-driven architecture</li>
+        <li>Database migrations and schemas</li>
+        <li>Production debugging</li>
+        <li>Telegram Bot API</li>
+      </ul>
     </section>
 
   </div>
 
 </div>
+
+<div class="cv-footer">
+  <span>CV / 2026</span>
+  <span>Backend &nbsp;·&nbsp; AI <span class="accent">/</span> LLM &nbsp;·&nbsp; Production</span>
+</div>
+
+<script>
+  function setThemeIcon() {
+    var t = document.documentElement.getAttribute('data-theme');
+    var btn = document.getElementById('themeToggle');
+    if (btn) btn.textContent = t === 'dark' ? '☾' : '☀';
+  }
+  function toggleTheme() {
+    var cur = document.documentElement.getAttribute('data-theme');
+    var next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('cv-theme', next);
+    setThemeIcon();
+  }
+
+  function setLangLabel() {
+    var l = document.documentElement.getAttribute('data-lang');
+    var btn = document.getElementById('langToggle');
+    if (btn) btn.textContent = l === 'ru' ? 'EN' : 'RU';
+    document.title = l === 'ru'
+      ? 'Руслан Шайхутдинов — Python Backend Developer'
+      : 'Ruslan Shaykhutdinov — Python Backend Developer';
+  }
+  function toggleLang() {
+    var cur = document.documentElement.getAttribute('data-lang');
+    var next = cur === 'ru' ? 'en' : 'ru';
+    document.documentElement.setAttribute('data-lang', next);
+    document.documentElement.setAttribute('lang', next);
+    localStorage.setItem('cv-lang', next);
+    setLangLabel();
+  }
+
+  setThemeIcon();
+  setLangLabel();
+</script>
 
 </body>
 </html>
