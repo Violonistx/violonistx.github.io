@@ -224,6 +224,12 @@
 
     .event:last-child { margin-bottom: 0; }
 
+    .event-summary {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
     .event-header {
       display: flex;
       justify-content: space-between;
@@ -410,9 +416,6 @@
         --accent: #940a0a;
       }
       html, body {
-        width: 210mm;
-        height: 297mm;
-        overflow: hidden;
         font-size: 11px;
       }
       header { padding: 20px 0 16px; border-bottom: 1px solid var(--text); }
@@ -435,6 +438,7 @@
         gap: 32px;
       }
       section { margin-bottom: 24px; page-break-inside: auto; }
+      .content > section:not(.about), .sidebar > section:last-child { margin-bottom: 0; }
       .event { page-break-inside: avoid; }
       h2 { margin-bottom: 14px; padding-bottom: 7px; }
       .about p { font-size: 10.5px; line-height: 1.55; }
@@ -442,12 +446,13 @@
       .event-header { margin-bottom: 7px; }
       .event-title { font-size: 11px; }
       .event-company { font-size: 10px; }
+      .event-summary { font-size: 10px; line-height: 1.45; }
       .event-date { font-size: 8px; }
       .event ul { margin-top: 7px; }
       .event ul li {
         padding-left: 13px;
         margin-bottom: 3px;
-        font-size: 9.5px;
+        font-size: 10px;
         line-height: 1.45;
       }
       .event ul li::before { top: 7px; width: 6px; }
@@ -533,7 +538,7 @@
     <section>
       <h2><span class="ru">Профессиональный опыт</span><span class="en">Experience</span></h2>
 
-      <div class="event">
+      <div class="event" id="tbank-experience">
         <div class="event-header">
           <div>
             <div class="event-title">
@@ -549,19 +554,23 @@
             <span class="en">Jun 2026 — Sep 2026</span>
           </div>
         </div>
+        <p class="event-summary ru">Разработка внутренних платформ для управления чат- и голосовыми ботами и анализа клиентских диалогов.</p>
+        <p class="event-summary en">Backend development for internal platforms used to manage chat and voice bots and analyse customer conversations.</p>
         <ul class="ru">
-          <li>Исследовал низкое качество встроенной кластеризации, из-за которого аналитики использовали внешние notebook. Доказал batch-зависимость действующей embedding-модели: на одинаковых данных результат менялся от 2 до 14 кластеров и до 32,7% сообщений оставались нераспределёнными.</li>
-          <li>Сравнил 4 embedding-модели на корпусах от 1,5 до 6,6 тыс. сообщений, провёл по 20 повторных запусков и проверил сотни конфигураций UMAP/HDBSCAN, KMeans, OPTICS, графовых и LLM-подходов.</li>
-          <li>Выбрал и реализовал новый пайплайн на BGE-M3 с выбором наиболее устойчивого результата из 5 запусков; добавил защищённый клиент модели, строгую проверку целостности данных, метрики и безопасный откат. Решение проверено на dev и находится в процессе выката.</li>
-          <li>Вывел из эксплуатации legacy semantic search: удалил 2,2 тыс. строк кода и тестов, 2 фоновых обработчика, 4 Kubernetes-развёртывания и 3 артефакта мониторинга; защитил фоновые задачи от повторного запуска.</li>
-          <li>Реализовал и внедрил автоматическую очистку PostgreSQL-таблицы на 408 тыс. записей по трёхмесячному сроку хранения: партиционирование, идемпотентную загрузку через Airflow, безопасную миграцию и rollback.</li>
+          <li><strong>FastAPI и фоновые задачи.</strong> Переработал генерацию сводок и технических заданий: вынес бизнес-логику из HTTP-обработчиков в сервисный слой с внедрением зависимостей. Устранил повторный запуск генерации при параллельных запросах через атомарное управление статусами в PostgreSQL.</li>
+          <li><strong>Массовые операции с данными.</strong> Разработал CLI для обновления каталога диалоговых сценариев с предварительной валидацией, dry-run и построчным отчётом об ошибках. Сделал операции атомарными: некорректные входные данные не приводят к частичным изменениям в БД.</li>
+          <li><strong>PostgreSQL и Airflow.</strong> Внедрил автоматическую очистку данных с трёхмесячной политикой хранения на основе партиционирования и регламентных задач Airflow. Обеспечил согласованное удаление связанных записей и повторную загрузку без дубликатов; подготовил миграцию с возможностью отката.</li>
+          <li><strong>Kubernetes и дата-центры.</strong> Развернул backend-сервисы и фоновые обработчики во втором дата-центре для повышения отказоустойчивости. Настроил Helm-релизы, балансировку трафика, сетевые политики и доступ приложений к секретам Vault.</li>
+          <li><strong>Исследование и кластеризация.</strong> Экспериментально доказал дефект действующей embedding-модели при пакетной обработке и обосновал её замену. Сравнил 4 модели и несколько семейств алгоритмов в сотнях экспериментов; выбрал и внедрил BGE-M3 с UMAP/HDBSCAN для тематической группировки клиентских обращений в аналитической платформе.</li>
+          <li><strong>Тестирование и среда разработки.</strong> Покрыл backend-изменения unit- и интеграционными тестами. Настроил запуск API, фоновых обработчиков, PostgreSQL и Redis одной командой через Docker Compose, включая миграции и подготовку тестовых данных.</li>
         </ul>
         <ul class="en">
-          <li>Investigated why built-in clustering underperformed and pushed analysts to external notebooks. Proved the existing embedding model was batch-dependent: identical inputs produced 2–14 clusters and left up to 32.7% of messages unassigned.</li>
-          <li>Benchmarked 4 embedding models on 1.5K–6.6K-message corpora across 20 repeated runs and hundreds of UMAP/HDBSCAN, KMeans, OPTICS, graph, and LLM-based configurations.</li>
-          <li>Selected and implemented a BGE-M3 pipeline that chooses the most stable result across 5 runs; added a secure model client, strict data-integrity checks, metrics, and safe rollback. Validated on dev; rollout in progress.</li>
-          <li>Retired legacy semantic search: removed 2.2K lines of code and tests, 2 background consumers, 4 Kubernetes deployments, and 3 monitoring artifacts; prevented duplicate background jobs.</li>
-          <li>Implemented and rolled out automated three-month retention for a 408K-row PostgreSQL table, including partitioning, idempotent Airflow ingestion, safe migration, and rollback.</li>
+          <li><strong>FastAPI and background processing.</strong> Refactored summary and specification generation, moving business logic from HTTP handlers into a service layer with dependency injection. Used atomic PostgreSQL state transitions to prevent concurrent requests from triggering duplicate generation jobs.</li>
+          <li><strong>Bulk data operations.</strong> Built CLI tools for maintaining a conversation-scenario catalogue, with input validation, dry runs, and per-row error reports. Made updates atomic so that an invalid record could not leave data partially modified.</li>
+          <li><strong>PostgreSQL and Airflow.</strong> Deployed automated cleanup with a three-month retention policy using table partitioning and scheduled Airflow jobs. Coordinated deletion of related records, made repeated ingestion idempotent, and delivered a migration with rollback support.</li>
+          <li><strong>Kubernetes and data centres.</strong> Deployed backend services and background workers in a second data centre to improve resilience. Configured Helm releases, traffic load balancing, network policies, and application access to Vault secrets.</li>
+          <li><strong>Clustering research and implementation.</strong> Experimentally demonstrated a batch-processing defect in the existing embedding model and established the need to replace it. Compared 4 models and several algorithm families across hundreds of experiments; selected and deployed BGE-M3 with UMAP/HDBSCAN to group customer messages by topic within the analytics platform.</li>
+          <li><strong>Testing and developer tooling.</strong> Added unit and integration tests for backend changes. Set up a one-command Docker Compose environment with the API, background workers, PostgreSQL, and Redis, including migrations and test data.</li>
         </ul>
       </div>
 
@@ -678,7 +687,76 @@
       </div>
     </section>
 
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
     <section>
+      <h2>Tech Stack</h2>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">Django</span>
+        <span class="tag">SQLAlchemy</span>
+        <span class="tag">asyncio</span>
+        <span class="tag">pydantic</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Redis</span>
+        <span class="tag">Kafka</span>
+        <span class="tag">Celery</span>
+        <span class="tag">Airflow</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Kubernetes</span>
+        <span class="tag">Helm</span>
+        <span class="tag">pytest</span>
+        <span class="tag">Git</span>
+        <span class="tag">Linux</span>
+        <span class="tag">REST API</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Backend Skills</h2>
+      <ul class="skill-list ru">
+        <li>Проектирование API</li>
+        <li>Бизнес-логика и сервисный слой</li>
+        <li>Фоновые задачи и workers</li>
+        <li>Интеграции с внешними API</li>
+        <li>Async / event-driven архитектура</li>
+        <li>Миграции и схемы БД</li>
+        <li>Тестирование и статический анализ</li>
+        <li>Диагностика production</li>
+      </ul>
+      <ul class="skill-list en">
+        <li>API design</li>
+        <li>Business logic and service layer</li>
+        <li>Background jobs and workers</li>
+        <li>External API integrations</li>
+        <li>Async / event-driven architecture</li>
+        <li>Database migrations and schemas</li>
+        <li>Testing and static analysis</li>
+        <li>Production diagnostics</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Data / ML</h2>
+      <ul class="skill-list ru">
+        <li>Пайплайны обработки данных</li>
+        <li>Кластеризация текстов</li>
+        <li>Embeddings / semantic search</li>
+        <li>Интеграции с LLM</li>
+      </ul>
+      <ul class="skill-list en">
+        <li>Data processing pipelines</li>
+        <li>Text clustering</li>
+        <li>Embeddings / semantic search</li>
+        <li>LLM integrations</li>
+      </ul>
+    </section>
+
+    <section class="education">
       <h2><span class="ru">Образование</span><span class="en">Education</span></h2>
       <div class="edu-item">
         <div class="edu-title">
@@ -708,73 +786,6 @@
           </span>
         </div>
       </div>
-    </section>
-
-  </div>
-
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-
-    <section>
-      <h2>Tech Stack</h2>
-      <div class="tags">
-        <span class="tag">Python</span>
-        <span class="tag">FastAPI</span>
-        <span class="tag">Django</span>
-        <span class="tag">SQLAlchemy</span>
-        <span class="tag">asyncio</span>
-        <span class="tag">pydantic</span>
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">Redis</span>
-        <span class="tag">Kafka</span>
-        <span class="tag">Celery</span>
-        <span class="tag">Docker</span>
-        <span class="tag">Kubernetes</span>
-        <span class="tag">pytest</span>
-        <span class="tag">Git</span>
-        <span class="tag">Linux</span>
-        <span class="tag">REST API</span>
-      </div>
-    </section>
-
-    <section>
-      <h2>Data / ML</h2>
-      <ul class="skill-list ru">
-        <li>Пайплайны обработки данных</li>
-        <li>Кластеризация текстов</li>
-        <li>Embeddings / semantic search</li>
-        <li>Интеграции с LLM</li>
-      </ul>
-      <ul class="skill-list en">
-        <li>Data processing pipelines</li>
-        <li>Text clustering</li>
-        <li>Embeddings / semantic search</li>
-        <li>LLM integrations</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Backend Skills</h2>
-      <ul class="skill-list ru">
-        <li>Проектирование API</li>
-        <li>Бизнес-логика и сервисный слой</li>
-        <li>Фоновые задачи и workers</li>
-        <li>Интеграции с внешними API</li>
-        <li>Async / event-driven архитектура</li>
-        <li>Миграции и схемы БД</li>
-        <li>Тестирование и статический анализ</li>
-        <li>Диагностика production</li>
-      </ul>
-      <ul class="skill-list en">
-        <li>API design</li>
-        <li>Business logic and service layer</li>
-        <li>Background jobs and workers</li>
-        <li>External API integrations</li>
-        <li>Async / event-driven architecture</li>
-        <li>Database migrations and schemas</li>
-        <li>Testing and static analysis</li>
-        <li>Production diagnostics</li>
-      </ul>
     </section>
 
   </div>
